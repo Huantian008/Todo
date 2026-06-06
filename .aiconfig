@@ -1,0 +1,115 @@
+# AI 开发团队配置
+# 本文件定义了多 AI 协作开发时的模型分配规范
+
+## 开发角色分配
+
+### 后端开发 - Codex
+**负责人:** OpenAI Codex
+**模型版本:** codex-5.3 (默认)
+**职责范围:**
+- backend/ 目录下的所有代码
+- Express.js 服务器开发
+- API 端点实现
+- 数据库模型设计
+- 后端单元测试
+
+**工作文件:**
+- backend/src/**/*.js
+- backend/tests/**/*.js
+- backend/package.json
+
+---
+
+### 前端开发 - Gemini
+**负责人:** Google Gemini
+**模型版本:** Gemini 3 Flash Preview (默认) ⚡
+**允许的模型（仅 Gemini 3 系列）:**
+- gemini-3-flash-preview ⚡ (默认，快速稳定)
+- gemini-3-pro-preview 🔥 (最强，备用)
+
+**禁止使用的模型:**
+- ❌ gemini-2.5-pro
+- ❌ gemini-2.5-flash
+- ❌ gemini-2.5-flash-lite
+- ❌ 所有非 Gemini 3 系列模型
+**职责范围:**
+- frontend/ 目录下的所有代码
+- React + TypeScript 开发
+- UI/UX 组件设计
+- Tailwind CSS 样式
+- 前端交互逻辑
+
+**工作文件:**
+- frontend/src/**/*.tsx
+- frontend/src/**/*.ts
+- frontend/src/**/*.css
+- frontend/package.json
+- frontend/tailwind.config.js
+
+---
+
+### 产品管理 - Claude
+**负责人:** Anthropic Claude
+**模型版本:** Claude Opus 4.6 / Sonnet 4.5
+**职责范围:**
+- 架构设计审查
+- 代码集成与协调
+- 前后端接口对接
+- 文档编写
+- 项目管理
+
+**工作文件:**
+- ARCHITECTURE.md
+- README.md
+- .aiconfig (本文件)
+- 项目级配置文件
+
+---
+
+## 使用指南
+
+### 调用 Codex 开发后端时：
+```
+# 使用默认模型：codex-5.3
+prompt: "使用 Codex 5.3 开发后端 [具体需求]"
+scope: backend/
+```
+
+### 调用 Gemini 开发前端时：
+```
+# 默认：Gemini 3 Flash Preview（需要更强能力时再升级到 Pro Preview）
+prompt: "使用 Gemini 3 Flash Preview 开发前端 [具体需求]（必要时可升级到 Gemini 3 Pro Preview）"
+scope: frontend/
+```
+
+### 调用 Claude 进行集成时：
+```
+# 使用 Claude Sonnet 或 Opus
+prompt: "审查前后端集成，修复 API 对接问题"
+scope: 全项目
+```
+
+---
+
+## 模型选择说明
+
+### 为什么选择 Codex 5.3 开发后端？
+- 擅长 Node.js/Express 服务器开发
+- 精通 RESTful API 设计
+- 熟悉测试框架（Jest/Supertest）
+
+### 为什么选择 Gemini 3（Flash 默认，Pro 备用）开发前端？
+- Flash：更快、更稳定，覆盖大多数前端任务
+- Pro：复杂任务更强（但可能更容易遇到 429），仅在必要时使用
+- 统一为 Gemini 3 系列，避免能力差异导致协作不一致
+
+### 为什么选择 Claude 做产品管理？
+- 全栈技术理解能力
+- 优秀的代码审查能力
+- 强大的文档编写能力
+
+---
+
+**创建日期:** 2026-02-09
+**最后更新:** 2026-02-09
+**版本:** 1.0
