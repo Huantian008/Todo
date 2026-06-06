@@ -51,26 +51,28 @@ const WeatherIcon: React.FC<{ condition: WeatherCondition; className?: string }>
 const WeatherCard: React.FC<WeatherCardProps> = ({ weather, loading, error }) => {
   if (loading) {
     return (
-      <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5 shadow-xl animate-pulse flex flex-col gap-3 min-h-[160px] justify-center">
-        <div className="h-5 bg-white/10 rounded w-1/3" />
-        <div className="h-10 bg-white/10 rounded w-1/2" />
-        <div className="h-4 bg-white/10 rounded w-3/4" />
+      <div className="rounded-[1.75rem] glass-panel-soft p-5 animate-pulse flex flex-col gap-3 min-h-[180px] justify-center">
+        <div className="h-5 bg-white/55 rounded-full w-1/3" />
+        <div className="h-12 bg-white/55 rounded-2xl w-1/2" />
+        <div className="h-4 bg-white/45 rounded-full w-3/4" />
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5 shadow-xl min-h-[160px] flex flex-col items-center justify-center text-center">
-        <svg className="w-8 h-8 text-[var(--color-text-muted)] mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-        </svg>
-        <p className="text-[var(--color-text-dim)] text-sm font-medium">
+      <div className="rounded-[1.75rem] glass-panel-soft glass-hairline p-5 min-h-[180px] flex flex-col items-center justify-center text-center">
+        <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-2xl weather-sheen shadow-lg">
+          <svg className="w-6 h-6 text-[var(--accent-dim)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6l4 2M7.5 5.6a8 8 0 1010 0" />
+          </svg>
+        </div>
+        <p className="text-[var(--color-text)] text-sm font-bold">
           {error.includes('denied') || error.includes('User denied') || error.includes('timeout')
             ? 'Location permission needed for weather'
             : 'Weather info unavailable'}
         </p>
-        <p className="text-[var(--color-text-muted)] text-xs mt-1">
+        <p className="text-[var(--color-text-muted)] text-xs mt-1.5 leading-relaxed">
           Todo features remain fully functional.
         </p>
       </div>
@@ -82,32 +84,37 @@ const WeatherCard: React.FC<WeatherCardProps> = ({ weather, loading, error }) =>
   }
 
   return (
-    <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5 shadow-xl backdrop-blur-md transition-all duration-500 hover:shadow-2xl">
+    <div className="relative overflow-hidden rounded-[1.75rem] glass-panel-soft glass-hairline p-5 transition-all duration-500 hover:-translate-y-0.5">
+      <div className="absolute -right-12 -top-12 h-32 w-32 rounded-full opacity-40 blur-2xl"
+        style={{ background: 'var(--accent-light)' }}
+      />
       <div className="flex justify-between items-start">
         <div>
-          <span className="text-[var(--color-text-muted)] text-[10px] uppercase tracking-wider font-bold">
-            Current Weather
+          <span className="text-[var(--color-text-muted)] text-[10px] uppercase tracking-[0.24em] font-black">
+            Local weather
           </span>
-          <h3 className="text-[var(--color-text)] font-bold text-lg mt-0.5">
+          <h3 className="text-[var(--color-text)] font-black text-xl mt-1">
             {weather.city || weather.province}
           </h3>
         </div>
-        <WeatherIcon condition={weather.condition} className="w-10 h-10 drop-shadow-md" />
+        <div className="relative z-10 flex h-14 w-14 items-center justify-center rounded-2xl weather-sheen shadow-lg">
+          <WeatherIcon condition={weather.condition} className="w-8 h-8 drop-shadow-md" />
+        </div>
       </div>
 
-      <div className="flex items-baseline gap-1 mt-4">
-        <span className="text-4xl font-extrabold text-[var(--color-text)] tracking-tight">
+      <div className="relative z-10 flex items-baseline gap-1 mt-5">
+        <span className="text-5xl font-black text-[var(--color-text)] tracking-tight">
           {weather.temperature}
         </span>
-        <span className="text-lg font-bold text-[var(--accent)]">
+        <span className="text-xl font-black text-[var(--accent)]">
           °C
         </span>
-        <span className="ml-auto text-xs font-semibold text-[var(--color-text-dim)] bg-[var(--color-card)]/50 px-2.5 py-1 rounded-full border border-[var(--color-border)]/30">
+        <span className="ml-auto text-xs font-bold text-[var(--color-text-dim)] bg-white/28 px-3 py-1.5 rounded-full border border-white/80 shadow-sm backdrop-blur-xl">
           {weather.weather}
         </span>
       </div>
 
-      <div className="grid grid-cols-2 gap-2 mt-5 pt-4 border-t border-[var(--color-border)]/50 text-xs">
+      <div className="relative z-10 grid grid-cols-2 gap-2 mt-5 pt-4 border-t border-white/70 text-xs">
         <div>
           <span className="text-[var(--color-text-muted)]">Humidity</span>
           <p className="font-semibold text-[var(--color-text-dim)] mt-0.5">{weather.humidity}%</p>
@@ -120,7 +127,7 @@ const WeatherCard: React.FC<WeatherCardProps> = ({ weather, loading, error }) =>
         </div>
       </div>
 
-      <div className="text-[9px] text-[var(--color-text-muted)] mt-4 text-right">
+      <div className="relative z-10 text-[10px] font-semibold text-[var(--color-text-muted)] mt-4 text-right">
         Updated: {weather.reportTime.split(' ')[1] || weather.reportTime}
       </div>
     </div>

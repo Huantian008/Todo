@@ -1,9 +1,9 @@
 @import "tailwindcss";
 
-/* ── Warm Nocturne Theme ────────────────────────────── */
+/* ── Bright Weather Glass Theme ─────────────────────── */
 @theme {
-  --font-display: 'Syne', system-ui, sans-serif;
-  --font-body: 'Outfit', system-ui, sans-serif;
+  --font-display: 'Aptos Display', 'Segoe UI', system-ui, sans-serif;
+  --font-body: 'Aptos', 'Segoe UI', system-ui, sans-serif;
 
   --color-void: var(--void);
   --color-abyss: var(--abyss);
@@ -27,117 +27,125 @@
 }
 
 :root {
-  --bg-start: #0a0a0a;
-  --bg-end: #171717;
-  --accent: #c6936a;
-  --accent-light: #d4a87c;
-  --accent-dim: #a07850;
-  --accent-glow: rgba(198, 147, 106, 0.12);
+  --bg-start: #d9f3ff;
+  --bg-mid: #f0f9ff;
+  --bg-end: #ffe9b8;
+  --accent: #0ea5e9;
+  --accent-light: #38bdf8;
+  --accent-dim: #0284c7;
+  --accent-glow: rgba(14, 165, 233, 0.18);
   
-  --void: #0a0a0a;
-  --abyss: #0f0f0f;
-  --surface: #171717;
-  --card: #1e1e1e;
-  --border: #2a2a2a;
-  --border-hover: #3a3a3a;
+  --void: #f8fcff;
+  --abyss: #eef7ff;
+  --surface: rgba(255, 255, 255, 0.38);
+  --card: rgba(255, 255, 255, 0.3);
+  --border: rgba(255, 255, 255, 0.8);
+  --border-hover: rgba(2, 132, 199, 0.5);
   
-  --text: #ededed;
-  --text-dim: #8a8a8a;
-  --text-muted: #5c5c5c;
+  --text: #062236;
+  --text-dim: #294f68;
+  --text-muted: #5d7d92;
+  --glass-shadow: 0 28px 90px rgba(30, 92, 132, 0.28);
+  --glass-highlight: rgba(255, 255, 255, 0.66);
 }
 
 .weather-sunny {
-  --bg-start: #fffbeb;
-  --bg-end: #fef3c7;
-  --accent: #d97706;
-  --accent-light: #f59e0b;
-  --accent-dim: #b45309;
-  --accent-glow: rgba(217, 119, 6, 0.12);
-  --void: #fffdf5;
-  --abyss: #fffbeb;
-  --surface: rgba(255, 255, 255, 0.75);
-  --card: rgba(255, 255, 255, 0.85);
-  --border: rgba(217, 119, 6, 0.12);
-  --border-hover: rgba(217, 119, 6, 0.25);
-  --text: #1e293b;
-  --text-dim: #475569;
-  --text-muted: #94a3b8;
+  --bg-start: #ffe7a3;
+  --bg-mid: #fff8d8;
+  --bg-end: #b8edff;
+  --accent: #f59e0b;
+  --accent-light: #facc15;
+  --accent-dim: #d97706;
+  --accent-glow: rgba(245, 158, 11, 0.2);
+  --void: #fffdf2;
+  --abyss: #fef6d4;
+  --surface: rgba(255, 255, 255, 0.36);
+  --card: rgba(255, 255, 255, 0.28);
+  --border: rgba(255, 255, 255, 0.78);
+  --border-hover: rgba(217, 119, 6, 0.5);
+  --text: #241704;
+  --text-dim: #5b3a07;
+  --text-muted: #8e691b;
 }
 
 .weather-cloudy {
-  --bg-start: #f1f5f9;
-  --bg-end: #e2e8f0;
-  --accent: #475569;
-  --accent-light: #64748b;
-  --accent-dim: #334155;
-  --accent-glow: rgba(71, 85, 105, 0.12);
-  --void: #f8fafc;
-  --abyss: #f1f5f9;
-  --surface: rgba(255, 255, 255, 0.75);
-  --card: rgba(255, 255, 255, 0.85);
-  --border: rgba(71, 85, 105, 0.1);
-  --border-hover: rgba(71, 85, 105, 0.22);
-  --text: #0f172a;
-  --text-dim: #334155;
-  --text-muted: #64748b;
+  --bg-start: #d7e8f7;
+  --bg-mid: #f5fbff;
+  --bg-end: #bcd7f2;
+  --accent: #3b82f6;
+  --accent-light: #60a5fa;
+  --accent-dim: #2563eb;
+  --accent-glow: rgba(59, 130, 246, 0.18);
+  --void: #f8fbff;
+  --abyss: #eff6ff;
+  --surface: rgba(255, 255, 255, 0.38);
+  --card: rgba(255, 255, 255, 0.3);
+  --border: rgba(255, 255, 255, 0.78);
+  --border-hover: rgba(37, 99, 235, 0.48);
+  --text: #071426;
+  --text-dim: #223852;
+  --text-muted: #5c7895;
 }
 
 .weather-rainy {
-  --bg-start: #0f172a;
-  --bg-end: #020617;
-  --accent: #38bdf8;
-  --accent-light: #7dd3fc;
-  --accent-dim: #0284c7;
-  --accent-glow: rgba(56, 189, 248, 0.12);
-  --void: #090d16;
-  --abyss: #0f172a;
-  --surface: rgba(15, 23, 42, 0.8);
-  --card: rgba(30, 41, 59, 0.7);
-  --border: rgba(56, 189, 248, 0.15);
-  --border-hover: rgba(56, 189, 248, 0.3);
-  --text: #f8fafc;
-  --text-dim: #cbd5e1;
-  --text-muted: #64748b;
+  --bg-start: #9ed7ff;
+  --bg-mid: #dbeafe;
+  --bg-end: #95b7ff;
+  --accent: #2563eb;
+  --accent-light: #38bdf8;
+  --accent-dim: #1d4ed8;
+  --accent-glow: rgba(37, 99, 235, 0.2);
+  --void: #f0f8ff;
+  --abyss: #dbeafe;
+  --surface: rgba(255, 255, 255, 0.34);
+  --card: rgba(255, 255, 255, 0.26);
+  --border: rgba(255, 255, 255, 0.72);
+  --border-hover: rgba(29, 78, 216, 0.48);
+  --text: #061735;
+  --text-dim: #1d3d68;
+  --text-muted: #526f98;
 }
 
 .weather-snowy {
-  --bg-start: #f0f9ff;
-  --bg-end: #e0f2fe;
-  --accent: #0284c7;
-  --accent-light: #38bdf8;
-  --accent-dim: #0369a1;
-  --accent-glow: rgba(2, 132, 199, 0.12);
-  --void: #fafaf9;
-  --abyss: #f0f9ff;
-  --surface: rgba(255, 255, 255, 0.75);
-  --card: rgba(255, 255, 255, 0.85);
-  --border: rgba(2, 132, 199, 0.1);
-  --border-hover: rgba(2, 132, 199, 0.22);
-  --text: #0f172a;
-  --text-dim: #334155;
-  --text-muted: #94a3b8;
+  --bg-start: #eefcff;
+  --bg-mid: #ffffff;
+  --bg-end: #a9dfff;
+  --accent: #0ea5e9;
+  --accent-light: #67e8f9;
+  --accent-dim: #0284c7;
+  --accent-glow: rgba(14, 165, 233, 0.16);
+  --void: #fbfdff;
+  --abyss: #eff9ff;
+  --surface: rgba(255, 255, 255, 0.4);
+  --card: rgba(255, 255, 255, 0.32);
+  --border: rgba(255, 255, 255, 0.82);
+  --border-hover: rgba(2, 132, 199, 0.46);
+  --text: #061629;
+  --text-dim: #23425c;
+  --text-muted: #6a8599;
 }
 
 .weather-foggy {
-  --bg-start: #f4f4f5;
-  --bg-end: #e4e4e7;
-  --accent: #71717a;
-  --accent-light: #a1a1aa;
-  --accent-dim: #52525b;
-  --accent-glow: rgba(113, 113, 122, 0.12);
-  --void: #fafafa;
-  --abyss: #f4f4f5;
-  --surface: rgba(255, 255, 255, 0.75);
-  --card: rgba(255, 255, 255, 0.85);
-  --border: rgba(113, 113, 122, 0.1);
-  --border-hover: rgba(113, 113, 122, 0.22);
-  --text: #18181b;
-  --text-dim: #52525b;
-  --text-muted: #a1a1aa;
+  --bg-start: #dce5eb;
+  --bg-mid: #f7fafc;
+  --bg-end: #bccbd6;
+  --accent: #64748b;
+  --accent-light: #94a3b8;
+  --accent-dim: #475569;
+  --accent-glow: rgba(100, 116, 139, 0.14);
+  --void: #fbfcfd;
+  --abyss: #eef2f6;
+  --surface: rgba(255, 255, 255, 0.36);
+  --card: rgba(255, 255, 255, 0.28);
+  --border: rgba(255, 255, 255, 0.76);
+  --border-hover: rgba(71, 85, 105, 0.44);
+  --text: #0a1424;
+  --text-dim: #35475d;
+  --text-muted: #6c7c8b;
 }
 
 .weather-default {
-  /* Inherits default variables from :root */
+  /* Inherits bright default variables from :root */
 }
 
 /* ── Base ───────────────────────────────────────────── */
@@ -154,10 +162,64 @@ body {
   min-height: 100vh;
   width: 100%;
   background:
-    radial-gradient(circle at 20% 10%, color-mix(in srgb, var(--accent) 15%, transparent), transparent 30%),
-    linear-gradient(135deg, var(--bg-start), var(--bg-end));
+    radial-gradient(circle at 7% 8%, color-mix(in srgb, var(--accent-light) 54%, transparent), transparent 28%),
+    radial-gradient(circle at 92% 12%, rgba(255, 255, 255, 0.68), transparent 22%),
+    radial-gradient(circle at 72% 88%, color-mix(in srgb, var(--accent) 42%, transparent), transparent 31%),
+    linear-gradient(135deg, var(--bg-start), var(--bg-mid), var(--bg-end));
   transition: background 800ms ease, color 300ms ease;
   color: var(--text);
+  position: relative;
+  overflow-x: hidden;
+}
+
+.app-shell::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(115deg, rgba(255,255,255,0.22), rgba(255,255,255,0) 36%),
+    radial-gradient(circle at 45% 18%, rgba(255,255,255,0.38), transparent 15%);
+  mix-blend-mode: overlay;
+}
+
+.glass-panel {
+  background:
+    linear-gradient(145deg, rgba(255,255,255,0.48), rgba(255,255,255,0.14)),
+    var(--color-surface);
+  border: 1.5px solid var(--border);
+  box-shadow: var(--glass-shadow);
+  backdrop-filter: blur(30px) saturate(170%);
+  -webkit-backdrop-filter: blur(30px) saturate(170%);
+}
+
+.glass-panel-soft {
+  background:
+    linear-gradient(150deg, rgba(255,255,255,0.42), rgba(255,255,255,0.12)),
+    var(--color-card);
+  border: 1.5px solid var(--border);
+  box-shadow: 0 18px 54px rgba(34, 88, 125, 0.2);
+  backdrop-filter: blur(28px) saturate(165%);
+  -webkit-backdrop-filter: blur(28px) saturate(165%);
+}
+
+.glass-hairline {
+  position: relative;
+}
+
+.glass-hairline::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  pointer-events: none;
+  border-radius: inherit;
+  border: 1px solid rgba(255,255,255,0.72);
+}
+
+.weather-sheen {
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255,255,255,0.74), transparent 26%),
+    linear-gradient(135deg, color-mix(in srgb, var(--accent-light) 44%, white), rgba(255,255,255,0.24));
 }
 
 /* ── Grain Texture Overlay ──────────────────────────── */
@@ -167,7 +229,7 @@ body::after {
   inset: 0;
   z-index: 9999;
   pointer-events: none;
-  opacity: 0.035;
+  opacity: 0.025;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-repeat: repeat;
   background-size: 256px 256px;
@@ -251,9 +313,9 @@ body::after {
 .shimmer-bar {
   background: linear-gradient(
     90deg,
-    var(--color-card) 25%,
-    var(--color-border) 37%,
-    var(--color-card) 50%
+    rgba(255,255,255,0.32) 25%,
+    rgba(255,255,255,0.72) 37%,
+    rgba(255,255,255,0.32) 50%
   );
   background-size: 200% 100%;
   animation: shimmer 1.5s ease-in-out infinite;
@@ -278,7 +340,8 @@ body::after {
   position: relative;
   transition: all 0.2s ease;
   flex-shrink: 0;
-  background: transparent;
+  background: rgba(255,255,255,0.36);
+  backdrop-filter: blur(10px);
 }
 .custom-checkbox:hover {
   border-color: var(--color-copper);
@@ -295,7 +358,7 @@ body::after {
   top: 2px;
   width: 6px;
   height: 11px;
-  border: solid var(--color-void);
+  border: solid #ffffff;
   border-width: 0 2px 2px 0;
   transform: rotate(45deg);
 }

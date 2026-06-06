@@ -197,24 +197,24 @@ const App: React.FC = () => {
   ];
 
   return (
-    <div className={`app-shell weather-${weather?.condition ?? 'default'} flex flex-col items-center px-4 py-12 md:py-20 transition-all duration-800`}>
+    <div className={`app-shell weather-${weather?.condition ?? 'default'} flex flex-col items-center px-4 py-8 md:py-12 transition-all duration-800`}>
       {/* Ambient gradient orbs */}
-      <div className="fixed top-1/4 -left-32 w-96 h-96 rounded-full blur-[180px] opacity-[0.05] pointer-events-none transition-all duration-800"
+      <div className="fixed top-20 -left-28 w-[28rem] h-[28rem] rounded-full blur-[150px] opacity-45 pointer-events-none transition-all duration-800"
         style={{ background: 'radial-gradient(circle, var(--accent) 0%, transparent 70%)' }} />
-      <div className="fixed bottom-1/4 -right-32 w-96 h-96 rounded-full blur-[180px] opacity-[0.04] pointer-events-none transition-all duration-800"
+      <div className="fixed bottom-10 -right-28 w-[30rem] h-[30rem] rounded-full blur-[150px] opacity-38 pointer-events-none transition-all duration-800"
         style={{ background: 'radial-gradient(circle, var(--accent-light, var(--accent)) 0%, transparent 70%)' }} />
 
-      <div className={`w-full max-w-4xl transition-all duration-700 ${firstLoad ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'}`}>
+      <div className={`relative z-10 w-full max-w-5xl transition-all duration-700 ${firstLoad ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'}`}>
         
         {/* Title and Stats Header */}
         <TodayHeader todoCount={todos.length} completedCount={completedCount} />
 
         {/* Responsive Grid Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-7 mt-8">
           
           {/* Main Todo Area */}
           <div className="md:col-span-2">
-            <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] shadow-2xl shadow-black/30 overflow-hidden transition-all duration-500">
+            <div className="rounded-[2rem] glass-panel glass-hairline overflow-hidden transition-all duration-500">
               
               {/* Add Todo input */}
               <div className="p-5 pb-0">
@@ -222,20 +222,20 @@ const App: React.FC = () => {
               </div>
 
               {/* Filter pills */}
-              <div className="flex gap-2 px-5 py-4 border-b border-[var(--color-border)]">
+              <div className="flex gap-2 px-5 py-4 border-b border-white/65">
                 {filters.map((f) => (
                   <button
                     key={f.key}
                     onClick={() => setFilter(f.key)}
                     className={`relative px-4 py-1.5 text-xs font-semibold rounded-full transition-all duration-200 cursor-pointer ${
                       filter === f.key
-                        ? 'bg-[var(--color-copper)]/15 text-[var(--color-copper-light)] border border-[var(--color-copper)]/30'
-                        : 'text-[var(--color-text-dim)] hover:text-[var(--color-text)] hover:bg-[var(--color-card)] border border-transparent'
+                        ? 'bg-white/52 text-[var(--accent-dim)] border border-white/85 shadow-sm'
+                        : 'text-[var(--color-text-dim)] hover:text-[var(--color-text)] hover:bg-white/30 border border-transparent'
                     }`}
                   >
                     {f.label}
                     <span className={`ml-1.5 px-1.5 py-0.5 text-[10px] rounded-full transition-all ${
-                      filter === f.key ? 'bg-[var(--color-copper)]/25 text-[var(--color-text)]' : 'bg-[var(--color-card)] text-[var(--color-text-muted)]'
+                      filter === f.key ? 'bg-[var(--accent-glow)] text-[var(--color-text)]' : 'bg-white/28 text-[var(--color-text-muted)]'
                     }`}>
                       {f.count}
                     </span>
@@ -262,8 +262,8 @@ const App: React.FC = () => {
                   <div className="flex flex-col gap-3 p-6 animate-pulse">
                     {[1, 2, 3].map((i) => (
                       <div key={i} className="flex items-center gap-4 py-2">
-                        <div className="w-[22px] h-[22px] rounded bg-white/10 flex-shrink-0" />
-                        <div className="h-5 bg-white/10 rounded flex-1" />
+                        <div className="w-[22px] h-[22px] rounded bg-white/35 flex-shrink-0" />
+                        <div className="h-5 bg-white/35 rounded flex-1" />
                       </div>
                     ))}
                   </div>
@@ -281,7 +281,7 @@ const App: React.FC = () => {
               </div>
             </div>
 
-            <p className="mt-6 text-center text-[var(--color-text-muted)] text-xs tracking-wide font-medium">
+            <p className="mt-5 text-center text-[var(--color-text-muted)] text-xs tracking-wide font-semibold">
               Double-click a task to edit · Click the circle to complete
             </p>
           </div>
@@ -297,7 +297,7 @@ const App: React.FC = () => {
             />
 
             {/* Todo Statistics Card */}
-            <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5 shadow-xl backdrop-blur-md transition-all duration-500">
+            <div className="rounded-[1.75rem] glass-panel-soft glass-hairline p-5 transition-all duration-500">
               <h4 className="text-[var(--color-text)] font-bold text-sm mb-4">
                 Today's Stats
               </h4>
@@ -308,7 +308,7 @@ const App: React.FC = () => {
                     {todos.length > 0 ? Math.round((completedCount / todos.length) * 100) : 0}%
                   </span>
                 </div>
-                <div className="w-full bg-[var(--color-card)]/60 rounded-full h-2 overflow-hidden border border-[var(--color-border)]/55">
+                <div className="w-full bg-white/28 rounded-full h-2.5 overflow-hidden border border-white/70">
                   <div
                     className="bg-[var(--accent)] h-full transition-all duration-500 ease-out rounded-full"
                     style={{
@@ -318,7 +318,7 @@ const App: React.FC = () => {
                   />
                 </div>
                 
-                <div className="grid grid-cols-2 gap-4 mt-2 pt-4 border-t border-[var(--color-border)]/50 text-xs">
+                <div className="grid grid-cols-2 gap-4 mt-2 pt-4 border-t border-white/65 text-xs">
                   <div>
                     <span className="text-[var(--color-text-muted)]">Active</span>
                     <p className="text-xl font-bold text-[var(--color-text)] mt-1">{activeCount}</p>
