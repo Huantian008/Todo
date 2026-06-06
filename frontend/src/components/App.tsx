@@ -28,6 +28,7 @@ const App: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [filter, setFilter] = useState<FilterType>('all');
   const [firstLoad, setFirstLoad] = useState(true);
+  const [leavingIds, setLeavingIds] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     const fetchTodos = async () => {
@@ -64,6 +65,19 @@ const App: React.FC = () => {
     setTodos((prev) =>
       prev.map((t) => (t.id === id ? { ...t, completed: !currentCompleted } : t))
     );
+
+    // Active filter: keep item visible for slide-to-bottom + fade-out
+    if (filter === 'active' && !currentCompleted) {
+      setLeavingIds((prev) => new Set(prev).add(id));
+      setTimeout(() => {
+        setLeavingIds((prev) => {
+          const next = new Set(prev);
+          next.delete(id);
+          return next;
+        });
+      }, 600); // 300ms slide + 200ms visible + 100ms buffer
+    }
+
     try {
       await axios.put<ApiResponse<Todo>>(`${API_BASE_URL}/${id}`, {
         completed: !currentCompleted,
@@ -73,6 +87,11 @@ const App: React.FC = () => {
       setTodos((prev) =>
         prev.map((t) => (t.id === id ? { ...t, completed: currentCompleted } : t))
       );
+      setLeavingIds((prev) => {
+        const next = new Set(prev);
+        next.delete(id);
+        return next;
+      });
     }
   };
 
@@ -112,11 +131,11 @@ const App: React.FC = () => {
 
   const displayTodos = useMemo(() => {
     switch (filter) {
-      case 'active':    return sortedTodos.filter((t) => !t.completed);
+      case 'active':    return sortedTodos.filter((t) => !t.completed || leavingIds.has(t.id));
       case 'completed': return sortedTodos.filter((t) => t.completed);
       default:          return sortedTodos;
     }
-  }, [sortedTodos, filter]);
+  }, [sortedTodos, filter, leavingIds]);
 
   const activeCount = todos.filter((t) => !t.completed).length;
   const completedCount = todos.filter((t) => t.completed).length;
@@ -206,6 +225,7 @@ const App: React.FC = () => {
                 onToggle={handleToggleTodo}
                 onDelete={handleDeleteTodo}
                 onEdit={handleEditTodo}
+                leavingIds={leavingIds}
               />
             )}
           </div>
