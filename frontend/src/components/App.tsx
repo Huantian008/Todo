@@ -297,7 +297,7 @@ const App: React.FC = () => {
             />
 
             {/* Todo Statistics Card */}
-            <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--surface)] p-5 shadow-xl backdrop-blur-md transition-all duration-500">
+            <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5 shadow-xl backdrop-blur-md transition-all duration-500">
               <h4 className="text-[var(--color-text)] font-bold text-sm mb-4">
                 Today's Stats
               </h4>

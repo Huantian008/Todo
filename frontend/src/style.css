@@ -3,7 +3,7 @@
 /* ── Warm Nocturne Theme ────────────────────────────── */
 @theme {
   --font-display: 'Syne', system-ui, sans-serif;
-  --font-body: 'Satoshi', system-ui, sans-serif;
+  --font-body: 'Outfit', system-ui, sans-serif;
 
   --color-void: var(--void);
   --color-abyss: var(--abyss);

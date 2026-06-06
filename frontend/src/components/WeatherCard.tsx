@@ -51,7 +51,7 @@ const WeatherIcon: React.FC<{ condition: WeatherCondition; className?: string }>
 const WeatherCard: React.FC<WeatherCardProps> = ({ weather, loading, error }) => {
   if (loading) {
     return (
-      <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--surface)] p-5 shadow-xl animate-pulse flex flex-col gap-3 min-h-[160px] justify-center">
+      <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5 shadow-xl animate-pulse flex flex-col gap-3 min-h-[160px] justify-center">
         <div className="h-5 bg-white/10 rounded w-1/3" />
         <div className="h-10 bg-white/10 rounded w-1/2" />
         <div className="h-4 bg-white/10 rounded w-3/4" />
@@ -61,7 +61,7 @@ const WeatherCard: React.FC<WeatherCardProps> = ({ weather, loading, error }) =>
 
   if (error) {
     return (
-      <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--surface)] p-5 shadow-xl min-h-[160px] flex flex-col items-center justify-center text-center">
+      <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5 shadow-xl min-h-[160px] flex flex-col items-center justify-center text-center">
         <svg className="w-8 h-8 text-[var(--color-text-muted)] mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
           <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
         </svg>
@@ -82,7 +82,7 @@ const WeatherCard: React.FC<WeatherCardProps> = ({ weather, loading, error }) =>
   }
 
   return (
-    <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--surface)] p-5 shadow-xl backdrop-blur-md transition-all duration-500 hover:shadow-2xl">
+    <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5 shadow-xl backdrop-blur-md transition-all duration-500 hover:shadow-2xl">
       <div className="flex justify-between items-start">
         <div>
           <span className="text-[var(--color-text-muted)] text-[10px] uppercase tracking-wider font-bold">
