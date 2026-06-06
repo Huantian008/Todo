@@ -1,1 +1,11 @@
-nul
+.env
+*.env
+node_modules/
+dist/
+coverage/
+.superpowers/
+backend/.env
+frontend/.env
+.DS_Store
+*.log
+data/db/

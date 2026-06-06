@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useLayoutEffect } from 'react';
 import TodoItem from './TodoItem';
-import type { Todo } from './App';
+import type { Todo } from '../types/todo';
 
 interface TodoListProps {
   todos: Todo[];

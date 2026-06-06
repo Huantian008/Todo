@@ -5,35 +5,159 @@
   --font-display: 'Syne', system-ui, sans-serif;
   --font-body: 'Satoshi', system-ui, sans-serif;
 
-  --color-void: #0a0a0a;
-  --color-abyss: #0f0f0f;
-  --color-surface: #171717;
-  --color-card: #1e1e1e;
-  --color-border: #2a2a2a;
-  --color-border-hover: #3a3a3a;
+  --color-void: var(--void);
+  --color-abyss: var(--abyss);
+  --color-surface: var(--surface);
+  --color-card: var(--card);
+  --color-border: var(--border);
+  --color-border-hover: var(--border-hover);
 
-  --color-copper: #c6936a;
-  --color-copper-light: #d4a87c;
-  --color-copper-dim: #a07850;
-  --color-copper-glow: rgba(198, 147, 106, 0.12);
+  --color-copper: var(--accent);
+  --color-copper-light: var(--accent-light);
+  --color-copper-dim: var(--accent-dim);
+  --color-copper-glow: var(--accent-glow);
 
-  --color-text: #ededed;
-  --color-text-dim: #8a8a8a;
-  --color-text-muted: #5c5c5c;
+  --color-text: var(--text);
+  --color-text-dim: var(--text-dim);
+  --color-text-muted: var(--text-muted);
 
   --color-danger: #d45b4b;
   --color-danger-glow: rgba(212, 91, 75, 0.12);
   --color-success: #6ebf8b;
 }
 
+:root {
+  --bg-start: #0a0a0a;
+  --bg-end: #171717;
+  --accent: #c6936a;
+  --accent-light: #d4a87c;
+  --accent-dim: #a07850;
+  --accent-glow: rgba(198, 147, 106, 0.12);
+  
+  --void: #0a0a0a;
+  --abyss: #0f0f0f;
+  --surface: #171717;
+  --card: #1e1e1e;
+  --border: #2a2a2a;
+  --border-hover: #3a3a3a;
+  
+  --text: #ededed;
+  --text-dim: #8a8a8a;
+  --text-muted: #5c5c5c;
+}
+
+.weather-sunny {
+  --bg-start: #fffbeb;
+  --bg-end: #fef3c7;
+  --accent: #d97706;
+  --accent-light: #f59e0b;
+  --accent-dim: #b45309;
+  --accent-glow: rgba(217, 119, 6, 0.12);
+  --void: #fffdf5;
+  --abyss: #fffbeb;
+  --surface: rgba(255, 255, 255, 0.75);
+  --card: rgba(255, 255, 255, 0.85);
+  --border: rgba(217, 119, 6, 0.12);
+  --border-hover: rgba(217, 119, 6, 0.25);
+  --text: #1e293b;
+  --text-dim: #475569;
+  --text-muted: #94a3b8;
+}
+
+.weather-cloudy {
+  --bg-start: #f1f5f9;
+  --bg-end: #e2e8f0;
+  --accent: #475569;
+  --accent-light: #64748b;
+  --accent-dim: #334155;
+  --accent-glow: rgba(71, 85, 105, 0.12);
+  --void: #f8fafc;
+  --abyss: #f1f5f9;
+  --surface: rgba(255, 255, 255, 0.75);
+  --card: rgba(255, 255, 255, 0.85);
+  --border: rgba(71, 85, 105, 0.1);
+  --border-hover: rgba(71, 85, 105, 0.22);
+  --text: #0f172a;
+  --text-dim: #334155;
+  --text-muted: #64748b;
+}
+
+.weather-rainy {
+  --bg-start: #0f172a;
+  --bg-end: #020617;
+  --accent: #38bdf8;
+  --accent-light: #7dd3fc;
+  --accent-dim: #0284c7;
+  --accent-glow: rgba(56, 189, 248, 0.12);
+  --void: #090d16;
+  --abyss: #0f172a;
+  --surface: rgba(15, 23, 42, 0.8);
+  --card: rgba(30, 41, 59, 0.7);
+  --border: rgba(56, 189, 248, 0.15);
+  --border-hover: rgba(56, 189, 248, 0.3);
+  --text: #f8fafc;
+  --text-dim: #cbd5e1;
+  --text-muted: #64748b;
+}
+
+.weather-snowy {
+  --bg-start: #f0f9ff;
+  --bg-end: #e0f2fe;
+  --accent: #0284c7;
+  --accent-light: #38bdf8;
+  --accent-dim: #0369a1;
+  --accent-glow: rgba(2, 132, 199, 0.12);
+  --void: #fafaf9;
+  --abyss: #f0f9ff;
+  --surface: rgba(255, 255, 255, 0.75);
+  --card: rgba(255, 255, 255, 0.85);
+  --border: rgba(2, 132, 199, 0.1);
+  --border-hover: rgba(2, 132, 199, 0.22);
+  --text: #0f172a;
+  --text-dim: #334155;
+  --text-muted: #94a3b8;
+}
+
+.weather-foggy {
+  --bg-start: #f4f4f5;
+  --bg-end: #e4e4e7;
+  --accent: #71717a;
+  --accent-light: #a1a1aa;
+  --accent-dim: #52525b;
+  --accent-glow: rgba(113, 113, 122, 0.12);
+  --void: #fafafa;
+  --abyss: #f4f4f5;
+  --surface: rgba(255, 255, 255, 0.75);
+  --card: rgba(255, 255, 255, 0.85);
+  --border: rgba(113, 113, 122, 0.1);
+  --border-hover: rgba(113, 113, 122, 0.22);
+  --text: #18181b;
+  --text-dim: #52525b;
+  --text-muted: #a1a1aa;
+}
+
+.weather-default {
+  /* Inherits default variables from :root */
+}
+
 /* ── Base ───────────────────────────────────────────── */
 body {
   margin: 0;
-  background-color: var(--color-void);
-  color: var(--color-text);
+  background-color: var(--void);
+  color: var(--text);
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.app-shell {
+  min-height: 100vh;
+  width: 100%;
+  background:
+    radial-gradient(circle at 20% 10%, color-mix(in srgb, var(--accent) 15%, transparent), transparent 30%),
+    linear-gradient(135deg, var(--bg-start), var(--bg-end));
+  transition: background 800ms ease, color 300ms ease;
+  color: var(--text);
 }
 
 /* ── Grain Texture Overlay ──────────────────────────── */

@@ -7,126 +7,155 @@ If other docs contradict this file, update them to match this file (or mark them
 
 A full-stack Todo web app built as a **multi-AI collaboration exercise**:
 
-- **Backend:** Express.js REST API (`backend/`)
-- **Frontend:** React + TypeScript + Vite + Tailwind (`frontend/`)
-- **Contract:** REST endpoints under `/api/todos`, with a consistent JSON envelope response.
+- **Backend:** Go + Gin REST API (`backend/`)
+- **Frontend:** React + TypeScript + Vite + Tailwind CSS (`frontend/`)
+- **Database:** MongoDB (`mongodb://localhost:27017`)
+- **Weather Service:** Proxied AMap (Gaode) Web Service API
+- **Contract:** REST endpoints under `/api/todos` and `/api/weather`, with a consistent JSON envelope response.
 
 ## Repository Layout (Current Code)
 
 ```
 todo-app-multiai/
-├── README.md                          # points here
+├── README.md                          # project introduction
 ├── CLAUDE.md                          # you are reading it
-├── .aiconfig                          # role/model constraints (project-level)
-├── backend/                           # Express.js REST API
-│   ├── src/
-│   │   ├── controllers/todo.controller.js
-│   │   ├── models/todo.model.js
-│   │   ├── routes/todo.routes.js
-│   │   ├── db/database.js            # in-memory Map store
-│   │   └── server.js                 # Express app + listen()
-│   └── tests/todo.test.js            # Jest + Supertest
-└── frontend/                          # React + TS UI
+├── ARCHITECTURE.md                    # system architecture
+├── docker-compose.yml                 # local MongoDB docker configuration
+├── backend/                           # Go REST API
+│   ├── cmd/
+│   │   └── server/
+│   │       └── main.go                # application entry point
+│   ├── internal/
+│   │   ├── config/                    # godotenv config loader
+│   │   ├── db/                        # MongoDB database connector
+│   │   ├── models/                    # Go data structures (Todo, Weather)
+│   │   ├── repositories/              # MongoDB CRUD data access
+│   │   ├── services/                  # Gaode Weather API service integrations
+│   │   ├── handlers/                  # request/response controllers
+│   │   └── routes/                    # Gin routes + CORS middleware
+│   ├── tests/
+│   │   └── todo_test.go               # in-memory HTTP endpoint tests
+│   ├── go.mod
+│   ├── go.sum
+│   └── .env.example
+└── frontend/                          # React + TS + Tailwind UI
     ├── src/
-    │   ├── components/
-    │   │   ├── App.tsx
-    │   │   ├── AddTodo.tsx
-    │   │   ├── Header.tsx
-    │   │   ├── TodoList.tsx
-    │   │   └── TodoItem.tsx
-    │   └── main.tsx
+    │   ├── api/                       # API client services (todos, weather)
+    │   ├── components/                # React UI elements (App, TodoList, WeatherCard, TodayHeader, EmptyState)
+    │   ├── hooks/                     # Custom React hooks (useGeolocation)
+    │   ├── types/                     # TypeScript type definitions (todo, weather)
+    │   ├── main.tsx
+    │   └── style.css                  # global Tailwind styles & dynamic weather variables
+    ├── package.json
     └── vite.config.ts
 ```
 
 ## How To Run (Local)
+
+### Prerequisites
+
+- Go (1.20+)
+- MongoDB (Running locally on `27017` or via Docker: `docker compose up -d mongodb`)
+- Gaode Weather API Key (stored in `backend/.env` as `AMAP_KEY`)
 
 ### Backend (port `3001`)
 
 Working dir: `backend/`
 
 ```bash
-npm install
+# Setup env file
 cp .env.example .env
-npm start
+
+# Run local development server
+go run ./cmd/server
 ```
 
-Dev (auto-reload):
+Unit + Integration tests:
 
 ```bash
-npm run dev
+go test ./...
 ```
-
-Health check: `GET /health`
 
 ### Frontend (Vite dev server, usually `5173`)
 
 Working dir: `frontend/`
 
 ```bash
+# Install dependencies
 npm install
+
+# Run Vite dev server
 npm run dev
 ```
 
-Build/preview:
+Build/Typecheck:
 
 ```bash
+npm run typecheck
 npm run build
-npm run preview
 ```
+
+---
 
 ## Backend: Storage + API Contract
 
-### Storage (current implementation)
+### Storage
 
-The backend uses an **in-memory** `Map` store (`backend/src/db/database.js`). This means data is lost on restart.
+The backend uses a local **MongoDB** server. The database is named `todo_app`.
 
 ### Base URL
 
-`http://localhost:3001/api/todos`
+`http://localhost:3001`
 
 ### Endpoints
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| GET | `/api/todos` | List all todos |
+| GET | `/health` | API health check |
+| GET | `/api/todos?date=YYYY-MM-DD` | List all todos (optionally filtered by date) |
 | GET | `/api/todos/:id` | Get one todo |
 | POST | `/api/todos` | Create todo |
-| PUT | `/api/todos/:id` | Update todo |
+| PUT | `/api/todos/:id` | Update todo (supports partial updates) |
 | DELETE | `/api/todos/:id` | Delete todo |
+| GET | `/api/weather/today?lat=<lat>&lng=<lng>` | Get geolocated weather (AMap Proxy) |
 
-### Response Envelope (source of truth)
+### Response Envelope
 
-All endpoints respond with this envelope:
+All API endpoints respond with this standard envelope:
 
 ```json
 {
   "success": true,
-  "data": {}
+  "data": {},
+  "count": 1
 }
 ```
 
-Notes:
-- `GET /api/todos` also includes `count` in the response.
-- Error responses use `success: false` and an `error` string.
+Error responses:
 
-### Todo Shape (what the UI expects)
-
-```ts
-interface Todo {
-  id: string;          // UUID
-  title: string;
-  description?: string;
-  completed: boolean;
-  createdAt: string;   // ISO timestamp (current UI expects a string)
-  updatedAt: string;   // ISO timestamp (current UI expects a string)
+```json
+{
+  "success": false,
+  "error": "Error message",
+  "data": null
 }
 ```
 
-## Frontend: Integration Rules
+### Todo Shape (BSON & JSON)
 
-- Axios responses are wrapped: access the actual payload via `response.data.data`.
-- Todo `id` is a UUID string everywhere.
-- Backend runs on `http://localhost:3001` and frontend calls `http://localhost:3001/api/todos` directly.
+```go
+type Todo struct {
+    ID          primitive.ObjectID `bson:"_id,omitempty" json:"id"`
+    Title       string             `bson:"title" json:"title"`
+    Description string             `bson:"description,omitempty" json:"description,omitempty"`
+    Completed   bool               `bson:"completed" json:"completed"`
+    TaskDate    string             `bson:"taskDate" json:"taskDate"` // YYYY-MM-DD format
+    CreatedAt   time.Time          `bson:"createdAt" json:"createdAt"`
+    UpdatedAt   time.Time          `bson:"updatedAt" json:"updatedAt"`
+}
+```
+
+---
 
 ## Multi-AI Rules (Do Not Break)
 
@@ -134,37 +163,8 @@ These rules are enforced by convention and by `.aiconfig`/skill configs:
 
 - **Codex owns backend:** changes under `backend/`.
 - **Gemini owns frontend:** changes under `frontend/`.
-- **Claude owns integration/docs:** cross-cutting reviews and docs like this file.
+- **Claude owns integration/docs:** cross-cutting reviews and docs.
 
 Gemini model constraint (project policy):
 - Allowed: `gemini-3-flash-preview` (default), `gemini-3-pro-preview` (fallback).
 - Not allowed: any Gemini 2.x models.
-
-## Testing
-
-Backend tests:
-
-```bash
-cd backend
-npm test
-```
-
-Target coverage: `> 80%`.
-
-Unit-only tests (no HTTP listen, useful in restricted sandboxes):
-
-```bash
-cd backend
-npm run test:unit
-```
-
-## Doc Map (Supplementary Only)
-
-These files are optional and must not conflict with `CLAUDE.md`:
-
-- `ARCHITECTURE.md`: high-level architecture and goals (keep consistent with current code)
-- `AI_WORKFLOW.md`: multi-AI collaboration workflow
-- `MULTI_AI_USAGE.md`: CLI usage examples for Codex/Gemini/Claude
-- `GEMINI_3_ONLY.md`: Gemini model policy (Gemini 3 only)
-- `GEMINI_MODELS.md`: model policy summary (must match `GEMINI_3_ONLY.md`)
-- `SKILL_USAGE.md`, `.claude/skills/multi-ai-planner.md`: optional skill notes/config
