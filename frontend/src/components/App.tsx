@@ -47,7 +47,7 @@ const App: React.FC = () => {
     }
 
     if (geoError) {
-      setWeatherError(`Location error: ${geoError}`);
+      setWeatherError(geoError);
       setWeatherLoading(false);
       return;
     }
@@ -204,7 +204,7 @@ const App: React.FC = () => {
           completedCount={completedCount}
           weather={weather}
           loadingWeather={weatherLoading || geoLoading}
-          weatherError={weatherError || (geoError ? `Location error: ${geoError}` : null)}
+          weatherError={weatherError || geoError}
         />
 
         {/* Central Todo Area */}

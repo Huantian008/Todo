@@ -60,7 +60,7 @@ const TodayHeader: React.FC<TodayHeaderProps> = ({ todoCount, completedCount, we
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6l4 2M7.5 5.6a8 8 0 1010 0" />
                 </svg>
-                <span>Weather unavailable</span>
+                <span>{weatherError}</span>
              </div>
           ) : weather ? (
             <>
