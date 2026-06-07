@@ -1,7 +1,8 @@
 import axios from 'axios';
 import type { Todo } from '../types/todo';
 
-const BASE_URL = 'http://localhost:3001/api/todos';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? '';
+const BASE_URL = `${API_BASE_URL}/api/todos`;
 
 export interface ApiResponse<T> {
   success: boolean;

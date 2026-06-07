@@ -2,7 +2,8 @@ import axios from 'axios';
 import type { TodayWeather } from '../types/weather';
 import type { ApiResponse } from './todos';
 
-const BASE_URL = 'http://localhost:3001/api/weather/today';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? '';
+const BASE_URL = `${API_BASE_URL}/api/weather/today`;
 
 // Fetch today's weather proxying Gaode API through the Go server
 export const getTodayWeather = async (
