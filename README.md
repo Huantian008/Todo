@@ -1,90 +1,208 @@
-# Today's Todo ✨ Ambient Focus Edition
+# Today's Todo
 
-一个追求极致视觉体验与交互手感的全栈今日 Todo 应用。
+一个带天气氛围感的全栈今日 Todo 应用。前端根据用户所在位置的实时天气调整界面色彩和背景光晕，后端使用 Go + Gin 提供 Todo 与天气代理 API，数据存储在 MongoDB。
 
-在保留了“天气影响心情”的浪漫设定的基础上，我们对其前端界面进行了代号为 **"Ambient Focus" (氛围专注)** 的深度重构。应用不仅在后端使用了高性能的 Go + Gin 与 MongoDB 组合，更在前端将 UI 质感与交互体验推向了极致。
+## 项目特色
 
----
+- 天气驱动 UI：浏览器授权定位后，前端会请求后端天气接口；后端通过高德地图 API 获取实时天气，页面会根据晴天、阴天、雨天、雪天、雾霾等状态切换不同的 UI 色彩和环境光晕。
+- 今日任务聚焦：按当天日期管理 Todo，支持新增、完成、编辑、删除和 All / Active / Completed 筛选。
+- 丝滑交互：按钮、任务卡片、完成状态切换和列表重排都带有轻量动画反馈。
+- 前后端分离：React + TypeScript + Vite 前端，Go + Gin REST API 后端，MongoDB 持久化。
+- 生产部署友好：提供 Dockerfile、生产 Compose 和 Ubuntu 部署脚本；前端容器只绑定 `127.0.0.1:8088`，适合挂在已有 Nginx 旧业务旁边。
+- HTTPS 友好：可使用 Cloudflare 免费 Universal SSL，将自己的域名代理到服务器。
 
-## 🌟 全新设计特色 (Ambient Focus UI)
+## 技术栈
 
-我们深信：**优秀的工具不应该喧宾夺主，而是要在极致的静谧中为你提供氛围感。**
+- 前端：React 19、TypeScript、Vite、Tailwind CSS
+- 后端：Go、Gin
+- 数据库：MongoDB
+- 天气服务：高德地图逆地理编码 API + 天气查询 API
+- 部署：Docker Compose、Nginx、Cloudflare
 
-### 1. 沉浸式环境光晕 (Mesh Gradients) ⛅️
-我们抛弃了传统生硬的纯色天气背景。现在的页面底层是一个随本地天气动态渲染的 **弥散光晕 (Mesh Gradient)**：
-- **晴天**：屏幕边缘会泛起如阳光倾洒般的琥珀色暖阳。
-- **雨天**：则是深浅交织的冷调蓝光，仿佛雨水在玻璃窗上的折射。
-- 光晕作为一种**环境光**存在于极简的白色卡片之下，既让你感知到窗外的气候，又绝不会干扰你对任务的专注。
+## 高德地图 API
 
-### 2. 物理级丝滑交互 (Spring Physics) ⚡️
-为了让每一次点击都充满反馈感，我们在应用中注入了非线性的弹簧物理曲线 (`cubic-bezier(0.34, 1.56, 0.64, 1)`)：
-- **按钮回弹**：无论是添加任务、切换过滤条件，还是点击完成，所有的按钮按下和松开都会带有真实的 Q 弹缩放反馈。
-- **磁性悬浮**：光标移动到待办卡片上时，卡片会伴随微小的放大 (`scale: 1.01`) 与上移 (`-1px`)，同时底部投射出深邃的阴影，仿佛卡片受到磁力吸引向你贴近。
+天气功能需要在环境变量中配置高德地图 Web 服务 API Key：
 
-### 3. 空间层级重排 (FLIP Animations) 🚀
-不再有生硬的任务跳动！当你勾选或取消一个任务时，它会自动在列表中重新排序：
-- **Z-Index 提权跃升**：移动中的卡片会像实物一样，飞跃**高于**其他卡片的空间层级（Z 轴）。
-- **丝滑归位**：长达 600ms 的弹性过渡动画，让卡片在列表间穿梭、归位的过程变成一种视觉享受。
+```env
+AMAP_KEY=你的高德地图API密钥
+```
 
-### 4. 极简英雄头部 (Hero Header) 🏆
-去除了冗余的侧边栏。巨大的当期日期占据视觉主导，而天气数据（图标、温度、地点）与你的进度统计，化作了极其精致的胶囊药丸 (Pill) 样式，融入到头部的右上角。页面现在是 100% 居中且专注于你的待办列表的。
+申请地址：
 
----
+https://lbs.amap.com/
 
-## 🛠 技术栈
+浏览器定位流程：
 
-- **后端**：Go + Gin (RESTful API)
-- **数据库**：MongoDB (经由 Docker Compose 管理)
-- **前端**：React 19 + TypeScript + Vite + Tailwind CSS 4
-- **天气服务**：高德地图逆地理编码和天气查询 API
+1. 用户打开页面。
+2. 浏览器请求定位权限。
+3. 用户允许后，前端把经纬度发送到 `/api/weather/today?lat=<lat>&lng=<lng>`。
+4. 后端通过高德逆地理编码获取行政区 adcode。
+5. 后端再通过高德天气接口获取实时天气。
+6. 前端根据天气状态更新天气卡片和页面主题色。
 
-## 🚀 快速开始
+如果用户没有开启浏览器定位权限，页面会提示用户开启定位权限，不会使用写死的默认城市。
 
-### 1. 数据库设置
+## 本地开发
 
-确保您的 MongoDB 在本地的 `27017` 端口运行，或者通过 Docker 启动：
+### 1. 启动 MongoDB
 
 ```bash
 docker compose up -d mongodb
 ```
 
-### 2. 后端设置
+### 2. 配置后端环境变量
 
-1. 配置您的环境变量文件：
+```bash
+cd backend
+cp .env.example .env
+```
 
-   ```bash
-   cd backend
-   cp .env.example .env
-   ```
+编辑 `backend/.env`：
 
-2. 打开 `backend/.env` 并配置您的高德地图 API 密钥：
+```env
+PORT=3001
+MONGO_URI=mongodb://localhost:27017
+MONGO_DATABASE=todo_app
+AMAP_KEY=你的高德地图API密钥
+CORS_ORIGIN=http://localhost:5173
+```
 
-   ```env
-   AMAP_KEY=你的高德地图API密钥
-   ```
+启动后端：
 
-3. 启动 Go 服务：
+```bash
+go run ./cmd/server
+```
 
-   ```bash
-   go run ./cmd/server
-   ```
-   后端服务将运行在 `http://localhost:3001`。
+后端地址：
 
-### 3. 前端设置
+```text
+http://localhost:3001
+```
 
-1. 在另一个终端会话中运行：
+### 3. 启动前端
 
-   ```bash
-   cd frontend
-   npm install
-   npm run dev
-   ```
+```bash
+cd frontend
+npm install
+npm run dev
+```
 
-2. 在浏览器中打开 `http://localhost:5173`。
+前端地址：
 
-## 📡 API 文档
+```text
+http://localhost:5173
+```
 
-后端基础地址：`http://localhost:3001`
+## 生产部署
+
+生产环境推荐使用你自己的子域名部署，例如：
+
+```text
+https://todo.example.com
+```
+
+### 1. 服务器环境变量
+
+在服务器项目根目录创建 `.env`：
+
+```bash
+cp .env.production.example .env
+nano .env
+```
+
+示例：
+
+```env
+AMAP_KEY=你的高德地图API密钥
+CORS_ORIGIN=https://todo.example.com
+VITE_API_BASE_URL=
+```
+
+`VITE_API_BASE_URL` 留空时，前端会使用相对路径 `/api/...`，适合通过 Nginx 反向代理部署。
+
+### 2. 构建并启动容器
+
+```bash
+bash scripts/deploy-ubuntu.sh
+```
+
+或者手动执行：
+
+```bash
+docker compose -f docker-compose.prod.yml up -d --build
+```
+
+生产 Compose 会启动：
+
+- `mongodb`：MongoDB 数据库
+- `backend`：Go API 服务
+- `frontend`：Nginx 托管的前端静态文件
+
+前端容器只暴露到服务器本机：
+
+```text
+127.0.0.1:8088
+```
+
+### 3. Nginx 反向代理
+
+如果服务器已有 Nginx 旧业务，不要删除旧配置，只新增一个子域名配置：
+
+```nginx
+server {
+    listen 80;
+    server_name todo.example.com;
+
+    auth_basic off;
+
+    location / {
+        proxy_pass http://127.0.0.1:8088;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+```
+
+检查并重载：
+
+```bash
+nginx -t
+systemctl reload nginx
+```
+
+### 4. Cloudflare HTTPS
+
+DNS 添加 A 记录：
+
+```text
+todo.example.com -> YOUR_SERVER_IP
+```
+
+开启橙色云朵代理后，Cloudflare 的免费 Universal SSL 会自动签发和续期。推荐先使用：
+
+```text
+SSL/TLS encryption mode: Flexible
+Always Use HTTPS: On
+```
+
+Cloudflare 的 Universal SSL 不需要单独续费；需要续费的是域名本身和服务器。
+
+## API 文档
+
+后端基础地址：
+
+```text
+http://localhost:3001
+```
+
+生产环境中前端通过相对路径访问：
+
+```text
+/api/...
+```
 
 | Method | Endpoint | Description |
 | --- | --- | --- |
@@ -96,19 +214,32 @@ docker compose up -d mongodb
 | DELETE | `/api/todos/:id` | 删除 Todo |
 | GET | `/api/weather/today?lat=<lat>&lng=<lng>` | 根据浏览器定位获取今日天气 |
 
-## 🧪 验证与测试
+## 验证与测试
 
-运行 Go 后端测试：
+后端测试：
 
 ```bash
 cd backend
 go test ./...
 ```
 
-运行前端类型检查与生产环境构建：
+前端类型检查和构建：
 
 ```bash
 cd frontend
 npm run typecheck
 npm run build
+```
+
+生产镜像构建：
+
+```bash
+docker compose -f docker-compose.prod.yml build
+```
+
+服务器状态检查：
+
+```bash
+docker compose -f docker-compose.prod.yml ps
+curl http://127.0.0.1:8088/health
 ```

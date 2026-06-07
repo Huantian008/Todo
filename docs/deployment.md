@@ -6,14 +6,14 @@ The production setup is designed to avoid breaking existing server business:
 
 - Docker exposes the Todo frontend only on `127.0.0.1:8088`.
 - Existing public `80/443` services remain owned by the server's current Nginx/Caddy/Apache.
-- Add a new virtual host for `todo.leadertestofcn.site` and proxy it to `127.0.0.1:8088`.
+- Add a new virtual host for your domain, such as `todo.example.com`, and proxy it to `127.0.0.1:8088`.
 
 ## Server
 
 The current Droplet public IPv4 is:
 
 ```text
-142.93.22.124
+YOUR_SERVER_IP
 ```
 
 ## One-time server setup
@@ -43,7 +43,7 @@ Edit `.env` before starting the stack:
 
 ```env
 AMAP_KEY=your_real_amap_key
-CORS_ORIGIN=https://todo.leadertestofcn.site
+CORS_ORIGIN=https://todo.example.com
 VITE_API_BASE_URL=
 ```
 
@@ -52,7 +52,7 @@ After the containers start, add a reverse proxy entry in the existing public web
 ```nginx
 server {
     listen 80;
-    server_name todo.leadertestofcn.site;
+    server_name todo.example.com;
 
     location / {
         proxy_pass http://127.0.0.1:8088;
@@ -68,7 +68,7 @@ server {
 The app will be available after DNS and reverse proxy are active:
 
 ```text
-https://todo.leadertestofcn.site
+https://todo.example.com
 ```
 
 ## Check status
@@ -90,4 +90,4 @@ docker compose -f docker-compose.prod.yml up -d --build
 
 - MongoDB is not exposed to the public internet.
 - The frontend calls `/api/...`, and Nginx proxies those requests to the Go backend.
-- Add a domain and HTTPS later by pointing DNS to `142.93.22.124` and putting a TLS proxy in front of the frontend container.
+- Add a domain and HTTPS later by pointing DNS to your server IP and putting a TLS proxy in front of the frontend container.

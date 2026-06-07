@@ -2,7 +2,8 @@
 set -euo pipefail
 
 APP_DIR="${APP_DIR:-$(pwd)}"
-DOMAIN="${DOMAIN:-todo.leadertestofcn.site}"
+DOMAIN="${DOMAIN:-todo.example.com}"
+SERVER_IP="${SERVER_IP:-YOUR_SERVER_IP}"
 LOCAL_PORT="${LOCAL_PORT:-8088}"
 COMPOSE_FILE="${COMPOSE_FILE:-docker-compose.prod.yml}"
 
@@ -62,4 +63,4 @@ server {
 NGINX
 
 echo
-echo "Cloudflare DNS: add A record ${DOMAIN} -> 142.93.22.124"
+echo "Cloudflare DNS: add A record ${DOMAIN} -> ${SERVER_IP}"

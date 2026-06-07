@@ -20,7 +20,7 @@ services:
       MONGO_URI: mongodb://mongodb:27017
       MONGO_DATABASE: todo_app
       AMAP_KEY: ${AMAP_KEY}
-      CORS_ORIGIN: ${CORS_ORIGIN:-https://todo.leadertestofcn.site}
+      CORS_ORIGIN: ${CORS_ORIGIN:-https://todo.example.com}
     depends_on:
       mongodb:
         condition: service_healthy
