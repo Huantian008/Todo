@@ -1,260 +1,218 @@
 @import "tailwindcss";
 
-/* ── Bright Weather Glass Theme ─────────────────────── */
 @theme {
-  --font-display: 'Aptos Display', 'Segoe UI', system-ui, sans-serif;
-  --font-body: 'Aptos', 'Segoe UI', system-ui, sans-serif;
+  --font-display: 'Inter', 'Aptos Display', system-ui, sans-serif;
+  --font-body: 'Inter', 'Aptos', system-ui, sans-serif;
 
-  --color-void: var(--void);
-  --color-abyss: var(--abyss);
-  --color-surface: var(--surface);
-  --color-card: var(--card);
-  --color-border: var(--border);
-  --color-border-hover: var(--border-hover);
-
-  --color-copper: var(--accent);
-  --color-copper-light: var(--accent-light);
-  --color-copper-dim: var(--accent-dim);
-  --color-copper-glow: var(--accent-glow);
-
-  --color-text: var(--text);
-  --color-text-dim: var(--text-dim);
-  --color-text-muted: var(--text-muted);
-
-  --color-danger: #d45b4b;
-  --color-danger-glow: rgba(212, 91, 75, 0.12);
-  --color-success: #6ebf8b;
+  --color-text: #0f172a;
+  --color-text-dim: #475569;
+  --color-text-muted: #94a3b8;
+  
+  --color-surface: rgba(255, 255, 255, 0.85);
+  --color-card: rgba(255, 255, 255, 0.6);
+  --color-border: rgba(255, 255, 255, 0.5);
+  --color-border-hover: rgba(255, 255, 255, 0.8);
+  
+  --color-accent: var(--weather-accent);
+  --color-accent-light: var(--weather-accent-light);
+  --color-accent-glow: var(--weather-glow);
+  --color-success: #10b981;
+  --color-danger: #ef4444;
 }
 
 :root {
-  --bg-start: #d9f3ff;
-  --bg-mid: #f0f9ff;
-  --bg-end: #ffe9b8;
-  --accent: #0ea5e9;
-  --accent-light: #38bdf8;
-  --accent-dim: #0284c7;
-  --accent-glow: rgba(14, 165, 233, 0.18);
+  --bg-color: #f8fafc;
+  --weather-mesh-1: rgba(56, 189, 248, 0.15); /* light blue */
+  --weather-mesh-2: rgba(250, 204, 21, 0.1);  /* yellow */
+  --weather-mesh-3: rgba(125, 211, 252, 0.2); /* lighter blue */
   
-  --void: #f8fcff;
-  --abyss: #eef7ff;
-  --surface: rgba(255, 255, 255, 0.38);
-  --card: rgba(255, 255, 255, 0.3);
-  --border: rgba(255, 255, 255, 0.8);
-  --border-hover: rgba(2, 132, 199, 0.5);
+  --weather-accent: #0ea5e9;
+  --weather-accent-light: #bae6fd;
+  --weather-glow: rgba(14, 165, 233, 0.2);
   
-  --text: #062236;
-  --text-dim: #294f68;
-  --text-muted: #5d7d92;
-  --glass-shadow: 0 28px 90px rgba(30, 92, 132, 0.28);
-  --glass-highlight: rgba(255, 255, 255, 0.66);
+  --glass-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.05), 0 10px 20px -5px rgba(0, 0, 0, 0.02);
+  --glass-shadow-hover: 0 30px 60px -12px rgba(0, 0, 0, 0.08), 0 15px 25px -7px rgba(0, 0, 0, 0.04);
 }
 
 .weather-sunny {
-  --bg-start: #ffe7a3;
-  --bg-mid: #fff8d8;
-  --bg-end: #b8edff;
-  --accent: #f59e0b;
-  --accent-light: #facc15;
-  --accent-dim: #d97706;
-  --accent-glow: rgba(245, 158, 11, 0.2);
-  --void: #fffdf2;
-  --abyss: #fef6d4;
-  --surface: rgba(255, 255, 255, 0.36);
-  --card: rgba(255, 255, 255, 0.28);
-  --border: rgba(255, 255, 255, 0.78);
-  --border-hover: rgba(217, 119, 6, 0.5);
-  --text: #241704;
-  --text-dim: #5b3a07;
-  --text-muted: #8e691b;
+  --bg-color: #fffbeb;
+  --weather-mesh-1: rgba(251, 191, 36, 0.25);
+  --weather-mesh-2: rgba(252, 211, 77, 0.2);
+  --weather-mesh-3: rgba(254, 240, 138, 0.3);
+  --weather-accent: #f59e0b;
+  --weather-accent-light: #fef3c7;
+  --weather-glow: rgba(245, 158, 11, 0.2);
 }
 
 .weather-cloudy {
-  --bg-start: #d7e8f7;
-  --bg-mid: #f5fbff;
-  --bg-end: #bcd7f2;
-  --accent: #3b82f6;
-  --accent-light: #60a5fa;
-  --accent-dim: #2563eb;
-  --accent-glow: rgba(59, 130, 246, 0.18);
-  --void: #f8fbff;
-  --abyss: #eff6ff;
-  --surface: rgba(255, 255, 255, 0.38);
-  --card: rgba(255, 255, 255, 0.3);
-  --border: rgba(255, 255, 255, 0.78);
-  --border-hover: rgba(37, 99, 235, 0.48);
-  --text: #071426;
-  --text-dim: #223852;
-  --text-muted: #5c7895;
+  --bg-color: #f1f5f9;
+  --weather-mesh-1: rgba(148, 163, 184, 0.2);
+  --weather-mesh-2: rgba(203, 213, 225, 0.25);
+  --weather-mesh-3: rgba(226, 232, 240, 0.3);
+  --weather-accent: #64748b;
+  --weather-accent-light: #e2e8f0;
+  --weather-glow: rgba(100, 116, 139, 0.2);
 }
 
 .weather-rainy {
-  --bg-start: #9ed7ff;
-  --bg-mid: #dbeafe;
-  --bg-end: #95b7ff;
-  --accent: #2563eb;
-  --accent-light: #38bdf8;
-  --accent-dim: #1d4ed8;
-  --accent-glow: rgba(37, 99, 235, 0.2);
-  --void: #f0f8ff;
-  --abyss: #dbeafe;
-  --surface: rgba(255, 255, 255, 0.34);
-  --card: rgba(255, 255, 255, 0.26);
-  --border: rgba(255, 255, 255, 0.72);
-  --border-hover: rgba(29, 78, 216, 0.48);
-  --text: #061735;
-  --text-dim: #1d3d68;
-  --text-muted: #526f98;
+  --bg-color: #f0f9ff;
+  --weather-mesh-1: rgba(56, 189, 248, 0.25);
+  --weather-mesh-2: rgba(125, 211, 252, 0.2);
+  --weather-mesh-3: rgba(186, 230, 253, 0.3);
+  --weather-accent: #0284c7;
+  --weather-accent-light: #e0f2fe;
+  --weather-glow: rgba(2, 132, 199, 0.2);
 }
 
 .weather-snowy {
-  --bg-start: #eefcff;
-  --bg-mid: #ffffff;
-  --bg-end: #a9dfff;
-  --accent: #0ea5e9;
-  --accent-light: #67e8f9;
-  --accent-dim: #0284c7;
-  --accent-glow: rgba(14, 165, 233, 0.16);
-  --void: #fbfdff;
-  --abyss: #eff9ff;
-  --surface: rgba(255, 255, 255, 0.4);
-  --card: rgba(255, 255, 255, 0.32);
-  --border: rgba(255, 255, 255, 0.82);
-  --border-hover: rgba(2, 132, 199, 0.46);
-  --text: #061629;
-  --text-dim: #23425c;
-  --text-muted: #6a8599;
+  --bg-color: #ffffff;
+  --weather-mesh-1: rgba(224, 242, 254, 0.4);
+  --weather-mesh-2: rgba(241, 245, 249, 0.5);
+  --weather-mesh-3: rgba(219, 234, 254, 0.4);
+  --weather-accent: #38bdf8;
+  --weather-accent-light: #f0f9ff;
+  --weather-glow: rgba(56, 189, 248, 0.2);
 }
 
 .weather-foggy {
-  --bg-start: #dce5eb;
-  --bg-mid: #f7fafc;
-  --bg-end: #bccbd6;
-  --accent: #64748b;
-  --accent-light: #94a3b8;
-  --accent-dim: #475569;
-  --accent-glow: rgba(100, 116, 139, 0.14);
-  --void: #fbfcfd;
-  --abyss: #eef2f6;
-  --surface: rgba(255, 255, 255, 0.36);
-  --card: rgba(255, 255, 255, 0.28);
-  --border: rgba(255, 255, 255, 0.76);
-  --border-hover: rgba(71, 85, 105, 0.44);
-  --text: #0a1424;
-  --text-dim: #35475d;
-  --text-muted: #6c7c8b;
+  --bg-color: #f8fafc;
+  --weather-mesh-1: rgba(156, 163, 175, 0.15);
+  --weather-mesh-2: rgba(209, 213, 219, 0.2);
+  --weather-mesh-3: rgba(229, 231, 235, 0.25);
+  --weather-accent: #9ca3af;
+  --weather-accent-light: #f3f4f6;
+  --weather-glow: rgba(156, 163, 175, 0.2);
 }
 
 .weather-default {
-  /* Inherits bright default variables from :root */
+  /* Uses root defaults */
 }
 
-/* ── Base ───────────────────────────────────────────── */
 body {
   margin: 0;
-  background-color: var(--void);
-  color: var(--text);
+  background-color: var(--bg-color);
+  color: var(--color-text);
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color 1s ease;
 }
 
 .app-shell {
   min-height: 100vh;
   width: 100%;
-  background:
-    radial-gradient(circle at 7% 8%, color-mix(in srgb, var(--accent-light) 54%, transparent), transparent 28%),
-    radial-gradient(circle at 92% 12%, rgba(255, 255, 255, 0.68), transparent 22%),
-    radial-gradient(circle at 72% 88%, color-mix(in srgb, var(--accent) 42%, transparent), transparent 31%),
-    linear-gradient(135deg, var(--bg-start), var(--bg-mid), var(--bg-end));
-  transition: background 800ms ease, color 300ms ease;
-  color: var(--text);
   position: relative;
   overflow-x: hidden;
 }
 
+/* Ambient Mesh Gradient Background */
 .app-shell::before {
   content: "";
   position: fixed;
-  inset: 0;
+  inset: -100px;
+  z-index: -1;
+  background: 
+    radial-gradient(circle at 15% 15%, var(--weather-mesh-1), transparent 55%),
+    radial-gradient(circle at 85% 25%, var(--weather-mesh-2), transparent 60%),
+    radial-gradient(circle at 50% 80%, var(--weather-mesh-3), transparent 70%);
+  filter: blur(60px);
+  opacity: 1;
+  transition: background 1.5s ease-in-out;
   pointer-events: none;
-  background-image:
-    linear-gradient(115deg, rgba(255,255,255,0.22), rgba(255,255,255,0) 36%),
-    radial-gradient(circle at 45% 18%, rgba(255,255,255,0.38), transparent 15%);
-  mix-blend-mode: overlay;
 }
 
+/* Soft Premium Glass */
 .glass-panel {
-  background:
-    linear-gradient(145deg, rgba(255,255,255,0.48), rgba(255,255,255,0.14)),
-    var(--color-surface);
-  border: 1.5px solid var(--border);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   box-shadow: var(--glass-shadow);
-  backdrop-filter: blur(30px) saturate(170%);
-  -webkit-backdrop-filter: blur(30px) saturate(170%);
+  backdrop-filter: blur(24px) saturate(140%);
+  -webkit-backdrop-filter: blur(24px) saturate(140%);
+  border-radius: 1.5rem;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
-.glass-panel-soft {
-  background:
-    linear-gradient(150deg, rgba(255,255,255,0.42), rgba(255,255,255,0.12)),
-    var(--color-card);
-  border: 1.5px solid var(--border);
-  box-shadow: 0 18px 54px rgba(34, 88, 125, 0.2);
-  backdrop-filter: blur(28px) saturate(165%);
-  -webkit-backdrop-filter: blur(28px) saturate(165%);
+/* Focused Todo Input & List */
+.todo-panel {
+  background: rgba(255, 255, 255, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 2rem;
+  box-shadow: var(--glass-shadow);
+  backdrop-filter: blur(40px) saturate(150%);
+  -webkit-backdrop-filter: blur(40px) saturate(150%);
 }
 
-.glass-hairline {
+.todo-item {
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+              background-color 0.3s ease,
+              border-color 0.3s ease,
+              border-radius 0.3s ease;
+  border: 1px solid transparent;
+  transform-origin: center;
+}
+.todo-item:hover {
+  background: rgba(255, 255, 255, 0.85);
+  transform: scale(1.01) translateY(-1px);
+  box-shadow: 0 10px 20px -8px rgba(0, 0, 0, 0.05), 0 4px 8px -4px rgba(0, 0, 0, 0.02);
+  border-radius: 1.25rem;
+  border-color: rgba(255, 255, 255, 1);
   position: relative;
+  z-index: 10;
 }
 
-.glass-hairline::before {
-  content: "";
-  position: absolute;
-  inset: 1px;
-  pointer-events: none;
-  border-radius: inherit;
-  border: 1px solid rgba(255,255,255,0.72);
-}
-
-.weather-sheen {
-  background:
-    radial-gradient(circle at 20% 20%, rgba(255,255,255,0.74), transparent 26%),
-    linear-gradient(135deg, color-mix(in srgb, var(--accent-light) 44%, white), rgba(255,255,255,0.24));
-}
-
-/* ── Grain Texture Overlay ──────────────────────────── */
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  pointer-events: none;
-  opacity: 0.025;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-repeat: repeat;
-  background-size: 256px 256px;
-}
-
-/* ── Scrollbar ──────────────────────────────────────── */
-::-webkit-scrollbar {
-  width: 6px;
-}
-::-webkit-scrollbar-track {
+/* Custom Checkbox */
+.custom-checkbox {
+  appearance: none;
+  width: 26px;
+  height: 26px;
+  border: 2px solid var(--color-text-muted);
+  border-radius: 50%; /* Circle looks more modern for tasks */
+  cursor: pointer;
+  position: relative;
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  flex-shrink: 0;
   background: transparent;
 }
-::-webkit-scrollbar-thumb {
-  background: var(--color-border);
-  border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-border-hover);
+
+.custom-checkbox:hover {
+  border-color: var(--color-accent);
+  background: var(--color-accent-light);
+  transform: scale(1.05);
 }
 
-/* ── Staggered Entrance ─────────────────────────────── */
+.custom-checkbox:checked {
+  background: var(--color-success);
+  border-color: var(--color-success);
+}
+
+.custom-checkbox:checked::after {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: 6px;
+  width: 6px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2.5px 2.5px 0;
+  transform: rotate(45deg);
+}
+
+.custom-checkbox:checked {
+  animation: checkPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Animations */
+@keyframes checkPop {
+  0%   { transform: scale(0.8); }
+  50%  { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(16px);
+    transform: translateY(12px);
   }
   to {
     opacity: 1;
@@ -262,106 +220,51 @@ body::after {
   }
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-
-@keyframes shimmer {
-  0%   { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
-}
-
-@keyframes pulseGlow {
-  0%, 100% { box-shadow: 0 0 0 0 var(--color-copper-glow); }
-  50%      { box-shadow: 0 0 0 6px transparent; }
-}
-
-@keyframes checkPop {
-  0%   { transform: scale(0); }
-  60%  { transform: scale(1.25); }
-  100% { transform: scale(1); }
-}
-
-@keyframes slideOut {
-  to {
-    opacity: 0;
-    transform: translateX(24px);
-    max-height: 0;
-    margin: 0;
-    padding: 0;
-  }
-}
-
 .animate-fade-in-up {
-  animation: fadeInUp 0.5s ease-out both;
+  animation: fadeInUp 0.4s ease-out both;
 }
 
 .animate-fade-in {
   animation: fadeIn 0.4s ease-out both;
 }
 
-.animate-check-pop {
-  animation: checkPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
-.animate-slide-out {
-  animation: slideOut 0.35s ease-in forwards;
-}
-
-/* ── Shimmer Loading ────────────────────────────────── */
 .shimmer-bar {
-  background: linear-gradient(
-    90deg,
-    rgba(255,255,255,0.32) 25%,
-    rgba(255,255,255,0.72) 37%,
-    rgba(255,255,255,0.32) 50%
-  );
+  background: linear-gradient(90deg, rgba(226, 232, 240, 0.5) 25%, rgba(241, 245, 249, 0.8) 50%, rgba(226, 232, 240, 0.5) 75%);
   background-size: 200% 100%;
-  animation: shimmer 1.5s ease-in-out infinite;
+  animation: shimmer 1.5s infinite;
 }
 
-/* ── Focus Ring ─────────────────────────────────────── */
-.focus-ring {
-  @apply outline-none;
-}
-.focus-ring:focus-visible {
-  box-shadow: 0 0 0 2px var(--color-void), 0 0 0 4px var(--color-copper);
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
 }
 
-/* ── Custom Checkbox ────────────────────────────────── */
-.custom-checkbox {
-  appearance: none;
-  width: 22px;
-  height: 22px;
-  border: 2px solid var(--color-border-hover);
-  border-radius: 6px;
-  cursor: pointer;
-  position: relative;
-  transition: all 0.2s ease;
-  flex-shrink: 0;
-  background: rgba(255,255,255,0.36);
-  backdrop-filter: blur(10px);
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
 }
-.custom-checkbox:hover {
-  border-color: var(--color-copper);
-  box-shadow: 0 0 0 4px var(--color-copper-glow);
+::-webkit-scrollbar-track {
+  background: transparent;
 }
-.custom-checkbox:checked {
-  background: var(--color-copper);
-  border-color: var(--color-copper);
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.3);
+  border-radius: 4px;
 }
-.custom-checkbox:checked::after {
-  content: "";
-  position: absolute;
-  left: 6px;
-  top: 2px;
-  width: 6px;
-  height: 11px;
-  border: solid #ffffff;
-  border-width: 0 2px 2px 0;
-  transform: rotate(45deg);
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.6);
 }
-.custom-checkbox:checked {
-  animation: checkPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+/* Non-linear spring animation for buttons */
+.btn-spring {
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
+.btn-spring:active {
+  transform: scale(0.92);
+  transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+

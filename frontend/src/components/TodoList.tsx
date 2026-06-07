@@ -42,12 +42,19 @@ const TodoList: React.FC<TodoListProps> = ({ todos, onToggle, onDelete, onEdit, 
         // Invert: make it look like it's still at old position
         el.style.transition = 'none';
         el.style.transform = `translateY(${deltaY}px)`;
+        el.style.zIndex = '20'; // Float above others during move
 
         // Play: animate to new position
         requestAnimationFrame(() => {
           requestAnimationFrame(() => {
-            el.style.transition = 'transform 300ms ease';
+            el.style.transition = 'transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)';
             el.style.transform = '';
+            
+            // Clean up z-index after animation
+            setTimeout(() => {
+              el.style.zIndex = '';
+              el.style.transition = ''; // Restore CSS class transition
+            }, 600);
           });
         });
       }
@@ -70,7 +77,7 @@ const TodoList: React.FC<TodoListProps> = ({ todos, onToggle, onDelete, onEdit, 
   };
 
   return (
-    <ul className="divide-y divide-[var(--color-border)]">
+    <ul className="divide-y divide-[var(--color-border)]/70">
       {todos.map((todo, i) => (
         <li
           key={todo.id}
