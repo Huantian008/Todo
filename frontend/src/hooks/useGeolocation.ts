@@ -6,6 +6,12 @@ export interface LocationState {
   error: string | null;
 }
 
+const DEFAULT_COORDINATES = {
+  // Nanchang Xihu District fallback. Used when browser geolocation is unavailable.
+  lat: 28.6573,
+  lng: 115.8774,
+};
+
 // Hook to retrieve coordinates from the browser's Geolocation API
 export const useGeolocation = (): LocationState => {
   const [state, setState] = useState<LocationState>({
@@ -18,8 +24,8 @@ export const useGeolocation = (): LocationState => {
     if (!navigator.geolocation) {
       setState({
         loading: false,
-        coordinates: null,
-        error: 'Geolocation is not supported by your browser',
+        coordinates: DEFAULT_COORDINATES,
+        error: null,
       });
       return;
     }
@@ -36,10 +42,11 @@ export const useGeolocation = (): LocationState => {
         });
       },
       (error) => {
+        console.warn('Browser geolocation failed, using default weather location:', error.message);
         setState({
           loading: false,
-          coordinates: null,
-          error: error.message,
+          coordinates: DEFAULT_COORDINATES,
+          error: null,
         });
       },
       {
